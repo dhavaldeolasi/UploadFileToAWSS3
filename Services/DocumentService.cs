@@ -48,35 +48,35 @@ namespace AWSS3FileUpload.Services
             }
         }
 
-        public async Task<bool> DownloadDocument(string fileName)
-        {
-            try
-            {
-                string directoryPath = @"D:\AWSDocuments\";
-                if (!Directory.Exists(directoryPath))
-                {
-                    Directory.CreateDirectory(directoryPath);
-                }
-                s3Client = new AmazonS3Client(accessKey, secretKey, bucketRegion);
-                GetObjectRequest request = new GetObjectRequest
-                {
-                    BucketName = bucketName,
-                    Key = fileName,
-                };
+        //public async Task<bool> DownloadDocument(string fileName)
+        //{
+        //    try
+        //    {
+        //        string directoryPath = @"D:\AWSDocuments\";
+        //        if (!Directory.Exists(directoryPath))
+        //        {
+        //            Directory.CreateDirectory(directoryPath);
+        //        }
+        //        s3Client = new AmazonS3Client(accessKey, secretKey, bucketRegion);
+        //        GetObjectRequest request = new GetObjectRequest
+        //        {
+        //            BucketName = bucketName,
+        //            Key = fileName,
+        //        };
 
-                using (GetObjectResponse response = await s3Client.GetObjectAsync(request))
-                {
-                    string filePath = directoryPath + fileName;
-                    await response.WriteResponseStreamToFileAsync(filePath, false, CancellationToken.None);
-                    return true;
-                }
-            }
-            catch (Exception ex)
-            {
-                //Log exception
-            }
-            return false;
-        }
+        //        using (GetObjectResponse response = await s3Client.GetObjectAsync(request))
+        //        {
+        //            string filePath = directoryPath + fileName;
+        //            await response.WriteResponseStreamToFileAsync(filePath, false, CancellationToken.None);
+        //            return true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        //Log exception
+        //    }
+        //    return false;
+        //}
 
     }
 }

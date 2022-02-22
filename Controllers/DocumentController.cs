@@ -37,30 +37,30 @@ namespace AWSS3FileUpload.Controllers
             }
         }
 
-        [HttpGet]
-        public async Task<ActionResult> DownloadDocument(string fileName)
-        {
+        //[HttpGet]
+        //public async Task<ActionResult> DownloadDocument(string fileName)
+        //{
 
-            bool isDownloadSuccess = false;
-            if (!string.IsNullOrEmpty(fileName))
-            {
-                DocumentService documentService = new DocumentService();
-                isDownloadSuccess = await documentService.DownloadDocument(fileName);
-            }
-            else
-            {
-                return BadRequest("Please provide the file name");
-            }
+        //    bool isDownloadSuccess = false;
+        //    if (!string.IsNullOrEmpty(fileName))
+        //    {
+        //        DocumentService documentService = new DocumentService();
+        //        isDownloadSuccess = await documentService.DownloadDocument(fileName);
+        //    }
+        //    else
+        //    {
+        //        return BadRequest("Please provide the file name");
+        //    }
 
-            if (isDownloadSuccess)
-            {
-                return Ok("Document downloaded successfully in D:\\AWSDocuments");
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Error occurred" });
-            }
-        }
+        //    if (isDownloadSuccess)
+        //    {
+        //        return Ok("Document downloaded successfully in D:\\AWSDocuments");
+        //    }
+        //    else
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Error occurred" });
+        //    }
+        //}
 
     }
 }

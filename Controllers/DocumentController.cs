@@ -10,32 +10,32 @@ namespace AWSS3FileUpload.Controllers
     [ApiController]
     public class DocumentController : ControllerBase
     {
-        [HttpPost]
-        public async Task<ActionResult> UploadDocument(IFormFile document)
-        {
+        //[HttpPost]
+        //public async Task<ActionResult> UploadDocument(IFormFile document)
+        //{
 
-            bool isUploadSuccess = false;
-            if (document != null)
-            {
-                Stream stream = document.OpenReadStream();
-                DocumentService documentService = new DocumentService();
-                isUploadSuccess = await documentService.UploadDocument(stream, document.FileName);
-                await stream.DisposeAsync();
-            }
-            else
-            {
-                return BadRequest("Please select file to upload");
-            }
+        //    bool isUploadSuccess = false;
+        //    if (document != null)
+        //    {
+        //        Stream stream = document.OpenReadStream();
+        //        DocumentService documentService = new DocumentService();
+        //        isUploadSuccess = await documentService.UploadDocument(stream, document.FileName);
+        //        await stream.DisposeAsync();
+        //    }
+        //    else
+        //    {
+        //        return BadRequest("Please select file to upload");
+        //    }
 
-            if (isUploadSuccess)
-            {
-                return Ok("Document uploaded successfully");
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Error occurred" });
-            }
-        }
+        //    if (isUploadSuccess)
+        //    {
+        //        return Ok("Document uploaded successfully");
+        //    }
+        //    else
+        //    {
+        //        return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Error occurred" });
+        //    }
+        //}
 
         [HttpGet]
         public async Task<ActionResult> DownloadDocument(string fileName)

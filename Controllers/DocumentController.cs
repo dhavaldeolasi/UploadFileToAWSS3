@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using AWSS3FileUpload.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace AWSS3FileUpload.Controllers
 {
@@ -10,32 +12,43 @@ namespace AWSS3FileUpload.Controllers
     [ApiController]
     public class DocumentController : ControllerBase
     {
-        [HttpPost]
-        public async Task<ActionResult> UploadDocument(IFormFile document)
+        private readonly ILogger _logger;
+
+        public DocumentController(ILogger logger)
         {
-
-            bool isUploadSuccess = false;
-            if (document != null)
-            {
-                Stream stream = document.OpenReadStream();
-                DocumentService documentService = new DocumentService();
-                isUploadSuccess = await documentService.UploadDocument(stream, document.FileName);
-                await stream.DisposeAsync();
-            }
-            else
-            {
-                return BadRequest("Please select file to upload");
-            }
-
-            if (isUploadSuccess)
-            {
-                return Ok("Document uploaded successfully");
-            }
-            else
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Error occurred" });
-            }
+            _logger = logger;
         }
+
+        //[HttpPost]
+        //public async Task<ActionResult> UploadDocument(IFormFile document)
+        //{
+        //    try
+        //    {
+        //        _logger.LogInformation("UploadDocument API is invoked");
+        //        bool isUploadSuccess = false;
+        //        if (document != null)
+        //        {
+        //            Stream stream = document.OpenReadStream();
+        //            DocumentService documentService = new DocumentService();
+        //            isUploadSuccess = await documentService.UploadDocument(stream, document.FileName);
+        //            await stream.DisposeAsync();
+        //        }
+        //        else
+        //        {
+        //            return BadRequest("Please select file to upload");
+        //        }
+
+        //        if (isUploadSuccess)
+        //        {
+        //            return Ok("Document uploaded successfully");
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError("Error occured with the message : " + ex.Message);
+        //    }
+        //    return StatusCode(StatusCodes.Status500InternalServerError, new { message = "Error occurred" });
+        //}
 
         [HttpGet]
         public async Task<ActionResult> DownloadDocument(string fileName)
